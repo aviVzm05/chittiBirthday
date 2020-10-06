@@ -1,0 +1,49 @@
+extends layout
+
+block content
+
+  div(class="header")
+    h1= title
+  
+  div(class="side")
+     h2  About Me
+     p Hello, Am <b>Shraddha Sirisha</b> My birthday is on 13th November 2020 and am too excited for it... 
+     |
+     |In these uncertain times of <b>CoronaVirus</b>,i can't have a hue party. But, you can stil send your wishes
+     |via video messages.
+     |Looking forward to see you all :)
+     h5  My Photo
+     div(class="image") 
+        img(src="/images/Chitti.jpg", alt="my Photo")
+  div(class="countdown-container")
+     h2  Number of days remaining
+     div(class="countdown-el days-c")
+       p(class="big-text" id="days") 0
+       span  days
+     div(class="countdown-el hours-c")
+       p(class="big-text" id="hours") 0
+       span  hours
+     div(class="countdown-el mins-c")
+       p(class="big-text" id="mins") 0
+       span  mins
+     div(class="countdown-el seconds-c")
+       p(class="big-text" id="seconds") 0
+       span  seconds
+  div(class="main")
+     form(action="/accept", method="post")
+       p 
+         label(for="fname") First Name:
+         input(type="text" name="fname" id="fname" placeholder="First Name")
+       p
+         label(for="lname") Last Name:
+         input(type="text" name="lname" id="lname" placeholder="Last Name")
+       p
+         label(for="video") Video to be uploaded:
+         input(type="file" id="videp" name="file" accept="video/*" enctype="multipart/form-data" capture="user")
+       p 
+         input(type="submit", value="Submit")
+  
+  div(class="footer")
+    h2  footer
+    
+

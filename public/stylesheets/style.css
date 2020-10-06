@@ -1,0 +1,92 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 50px;
+  background-color: aqua;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+/* Header/logo Title */
+.header {
+  padding: 10px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+  font-size: 40px;
+}
+
+/* Column container */
+.row {  
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: nowrap;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+.countdown-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Main column */
+.main {   
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+/* Fake image, just for this example */
+.image {
+  padding: 0 auto;
+  display: block
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+}
+
+
+input[type=submit] {
+  border: 1px solid #f44c0e;
+  color: #fff;
+  background: tomato;
+  padding: 10px 20px;
+  border-radius: 3px;
+}
+input[type=submit]:hover {
+  background: #f44c0e;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.big-text {
+  font-weight: bold;
+  font-size: 6rem;
+  line-height: 1;
+}
+
+.countdown-el {
+  text-align: center;
+}
+
+.countdown-el span {
+  font-size: 1.3rem;
+}
