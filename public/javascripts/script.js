@@ -1,6 +1,6 @@
 const daysEl = document.getElementById("days");
 const hoursEl = document.getElementById("hours");
-const minsEl = document.getElementById("mins");
+const minsEl = document.getElementById("minutes");
 const secondsEl = document.getElementById("seconds");
 
 const birthDay = "13 Nov 2020";
@@ -17,12 +17,6 @@ function countdown(){
 
     if (totalSeconds < 0) {
         days = Math.floor(totalSeconds/ 3600/24) < -1 ? 0 : 1;
-        if (days == 1) {
-          //  document.getElementById("Header").innerHTML = "Happy Birthday Chitti";
-            window.location.href = "./birthDay.html";
-        } else {
-            document.getElementById("Header").innerHTML = "Wait for next year";
-        }
     }else {
         days  = Math.floor(totalSeconds/ 3600/24);
         hours = Math.floor(totalSeconds/3600) % 24;
