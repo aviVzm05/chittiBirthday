@@ -1,11 +1,3 @@
-Welcome to Cloud Shell! Type "help" to get started.
-Your Cloud Platform project in this session is set to nodejstestingavinash.
-Use “gcloud config set project [PROJECT_ID]” to change to a different project.
-avi_vzm05@cloudshell:~ (nodejstestingavinash)$ cd chittiBirthday/
-avi_vzm05@cloudshell:~/chittiBirthday (nodejstestingavinash)$ ls
-app.js  app.yaml  bin  nodejstestingavinash-d04991471ef5.json  node_modules  package.json  package-lock.json  public  README.md  routes  test.txt  tmp  views
-avi_vzm05@cloudshell:~/chittiBirthday (nodejstestingavinash)$ vi app.yaml
-avi_vzm05@cloudshell:~/chittiBirthday (nodejstestingavinash)$ cat app.yaml
 # Copyright 2017, Google, Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
