@@ -1,49 +1,87 @@
 extends layout
 
 block content
-
-  div(class="header")
-    h1= title
-  
-  div(class="side")
-     h2  About Me
-     p Hello, Am <b>Shraddha Sirisha</b> My birthday is on 13th November 2020 and am too excited for it... 
-     |
-     |In these uncertain times of <b>CoronaVirus</b>,i can't have a hue party. But, you can stil send your wishes
-     |via video messages.
-     |Looking forward to see you all :)
-     h5  My Photo
-     div(class="image") 
-        img(src="/images/Chitti.jpg", alt="my Photo")
-  div(class="countdown-container")
-     h2  Number of days remaining
-     div(class="countdown-el days-c")
-       p(class="big-text" id="days") 0
-       span  days
-     div(class="countdown-el hours-c")
-       p(class="big-text" id="hours") 0
-       span  hours
-     div(class="countdown-el mins-c")
-       p(class="big-text" id="mins") 0
-       span  mins
-     div(class="countdown-el seconds-c")
-       p(class="big-text" id="seconds") 0
-       span  seconds
-  div(class="main")
-     form(action="/accept", method="post")
-       p 
-         label(for="fname") First Name:
-         input(type="text" name="fname" id="fname" placeholder="First Name")
-       p
-         label(for="lname") Last Name:
-         input(type="text" name="lname" id="lname" placeholder="Last Name")
-       p
-         label(for="video") Video to be uploaded:
-         input(type="file" id="videp" name="file" accept="video/*" enctype="multipart/form-data" capture="user")
-       p 
-         input(type="submit", value="Submit")
-  
-  div(class="footer")
-    h2  footer
-    
-
+  header.bg-primary.py-2
+    h4.display-4.text-white.text-center Shraddha Sirisha
+    .invisible#status #{errorMessage}
+  .bg-light
+    .container
+      .row
+        .col-sm-6.py-2
+          .text-dark
+            h4 About Me...
+            p
+              | Hello there! How are you doing? Guess, you are having fun working from home...
+              | Now, what can I say. Am a young and active 7 year old, studying in second class.
+              | I like
+              ul
+                li Chota Bheem
+                li playing with Barbie dolls
+                li making my mother mad &#128520; and
+                li Eating panner &#128523;
+            p.lead
+              | Am going to celebrate my 8th Birthday &#128515; on 
+              em 13th November.
+              | Shower me with your blessings and best wishes through a video message(and gifts &#128521;).
+              | This is a simple webpage, my Dad designed... so yeah, as you see... hopes are not high &#128540;.
+            strong I &hearts; my Dad!
+            p
+        .col-sm-6.py-4
+          img.img-thumbnail(src='/images/Chitti.jpg' alt='Can not show' class='height:auto')
+      .row.text-center
+        .col
+          h4.display-4
+            | My Birthday in
+      .row
+        .col.text-center.font-weight-bold
+          p#days days
+          span Days
+        .col.text-center.font-weight-bold
+          p#hours hours
+          span Hours
+        .col.text-center.font-weight-bold
+          p#minutes minutes
+          span Minutes
+        .col.text-center.font-weight-bold
+          p#seconds seconds
+          span Seconds
+    form#fileForm.main-form.needs-validation(action='/' enctype='multipart/form-data' method='POST' novalidate='')
+      .row
+        .col-sm
+          .form-group
+            label(for='firstname') First name
+            input#firstname.form-control(type='text' name='firstname' minLength= '5' maxLength= '25' size= '25' required='')
+            .invalid-feedback
+              | Please provide First name, minumum 5 Charecters
+        .col-sm
+          .form-group
+            label(for='lastname') Last name
+            input#lastname.form-control(type='text' name='lastname' minLength= '5' maxLength= '25' size= '25' required='')
+            .invalid-feedback
+              | Please provide Last name,, minumum 5 Charecters
+      .form-group
+        label(for='email') Email id
+        input#email.form-control(type='email' name='email' required='')
+        .invalid-feedback
+          | Please provide an email id
+      .form-group
+        label(for='upload') Upload your video message here
+        input#upload.form-control-file(type='file' name='upload' accept='video/*' capture='user' required='')
+        .invalid-feedback
+          | Please upload a video file.
+      .form-group
+        input.btn.btn-primary(type='submit' value='submit')
+  footer.bg-info.text-center.text-dark.py-2
+    p
+      small
+        | Messages recorded are stored in private cloud and would not be made
+        | public. The website and Video messages received would be destroyed after 13th November.
+        | For any issues reach out to 
+        a.text-dark(href='mailto:avi_vzm05@yahoo.com') Avinash
+  // Optional JavaScript
+  // jQuery first, then Popper.js, then Bootstrap JS
+  script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js' integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj' crossorigin='anonymous')
+  script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js' integrity='sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN' crossorigin='anonymous')
+  script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js' integrity='sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV' crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js')
+  script(src='/javascripts/script.js' defer)

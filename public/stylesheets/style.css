@@ -8,6 +8,11 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.invisible {
+  display: none;
+  visibility: hidden;
+}
+
 /* Header/logo Title */
 .header {
   padding: 10px;

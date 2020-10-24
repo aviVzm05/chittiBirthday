@@ -36,3 +36,59 @@ function formatTime(time) {
 
 countdown();
 setInterval(countdown, 1000);
+
+// script for form validation
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+
+/*
+Alert message 
+*/
+
+function alertMessage(){
+  var text = document.getElementById('status').innerHTML;
+  if (text) {
+    alert(document.getElementById('status').innerHTML);
+  }
+};
+
+//make sure the function gets triggered after page load.
+window.addEventListener("load", alertMessage);
+
+//file size validaiton
+window.addEventListener('load',function(){
+  $('#fileForm').bootstrapValidator({
+    feedbackIcons: {
+      valid: 'glyphicon glyphicon-ok',
+      invalid: 'glyphicon glyphicon-remove',
+      validating: 'glyphicon glyphicon-refresh'
+  },
+  fields: {
+    upload: {
+      validators: {
+        file: {
+          extension: 'mp4,mp3,avi,mov',
+          type: 'video/mp4,video/avi,video/quicktime,video/x-ms-wmv',
+          maxSize: 25 * 1024 *1024,
+          message: 'Max. size of 25Mb'
+        }
+      }
+    }
+  }
+  })
+});

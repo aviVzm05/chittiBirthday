@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var fs   = require('fs');
 var upload = require('express-fileupload');
-var validator = require('express-validator');
+var {body,validationResult} = require('express-validator');
 const {Storage} = require('@google-cloud/storage');
 const Firestore = require('@google-cloud/firestore');
 const { v4: uuidv4 } = require('uuid');
@@ -53,7 +53,21 @@ function uploadVideoToTemp(file,filename1) {
     return uploadVideo;
 }
 
-router.post('/', function(req, res, next) {
+router.post('/',[
+    body('firstname').isLength({min:5}).trim().escape(),
+    body('lastname').isLength({min:5}).trim().escape(),
+    body('email').isEmail().normalizeEmail(),
+
+],function(req, res, next) {
+
+    // Finds the validation errors in this request and wraps them in an object with handy functions
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+         res.status(400);
+         return res.render('index', {
+             errorMessage: "invalid data entered"
+         });
+    }
     var filename1 = uuidv4() + '_' +  req.files.upload.name;
     var fileObject = testBucket.file(filename1);
 
@@ -63,16 +77,21 @@ router.post('/', function(req, res, next) {
     if (!(req.files.upload.mimetype == 'video/mp4' || 
           req.files.upload.mimetype == 'video/avi' ||
           req.files.upload.mimetype == 'video/quicktime' ||
-          req.files.upload.mimetype == 'video/x-ms-wmv' ||
-          req.files.upload.size > 10083627
+          req.files.upload.mimetype == 'video/x-ms-wmv'
         )) {
         console.log('not a valid entry with mimetype ' + req.files.upload.mimetype + ' or size ' + req.files.upload.size);
           // render the error page
         res.status(500);
         res.render('error', {
-            reason: "can't upload the file...not in valid format or too huge",
+            reason: "can't upload the file...not in valid video file format",
             message: "Sorry.. please try again"
         });
+    } else if (req.files.upload.size > (25 * 1024 * 1024)){
+            // render the error page
+            res.status(500);
+            res.render('index', {
+                errorMessage: "can't upload the file...too huge, please limit the size to 25MB"
+            });
     }else {
         //code to move the vedio to temp location
         uploadVideoToTemp(req.files.upload,filename1)
@@ -82,8 +101,11 @@ router.post('/', function(req, res, next) {
                 gzip: true,
                 resumable:  false
             })).on('error',(err) =>{
-                console.log('error occured while writting to Google cloud')
-                res.send('error can not upload');
+                console.log('error occured while writting to Google cloud');
+                res.status(500);
+                res.render('index', {
+                    errorMessage: "Can not upload to Google Cloud"
+                });
             }).on('finish',()=>{
                 var data = {
                 firstname: req.body.firstname,
@@ -96,9 +118,6 @@ router.post('/', function(req, res, next) {
                         var output = await docRef.set(data);
                     };
                 setDocument(data);
-                res.status(201);
-                res.send('ok');
-
                 console.log(`Record successfully updloaded for ${data.firstname},${data.lastname}`)
                 fs.unlink(path.join(tempPath,filename1),(err)=> {
                     if (!err) {
@@ -106,7 +125,14 @@ router.post('/', function(req, res, next) {
                     }else{
                         console.log('well this failed ' + err);
                     }
-                })
+                });
+                //send responde message to the user.
+                res.status(201);
+                res.render('accept',{
+                    firstname: data.firstname,
+                    lastname: data.lastname,
+                    email: data.email   
+                });
             })
         }).catch((err) => {
             console.log('error from upload file promise '+ err);
