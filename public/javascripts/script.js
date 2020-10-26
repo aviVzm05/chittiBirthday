@@ -37,58 +37,98 @@ function formatTime(time) {
 countdown();
 setInterval(countdown, 1000);
 
-// script for form validation
-(function() {
-    'use strict';
-    window.addEventListener('load', function() {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName('needs-validation');
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener('submit', function(event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-  })();
-
-/*
-Alert message 
-*/
-
-function alertMessage(){
-  var text = document.getElementById('status').innerHTML;
-  if (text) {
-    alert(document.getElementById('status').innerHTML);
-  }
-};
-
-//make sure the function gets triggered after page load.
-window.addEventListener("load", alertMessage);
-
-//file size validaiton
-window.addEventListener('load',function(){
-  $('#fileForm').bootstrapValidator({
+//file size validaiton and prevent default submission.
+$(document).ready(function(){
+  $('.main-form').bootstrapValidator({
     feedbackIcons: {
       valid: 'glyphicon glyphicon-ok',
       invalid: 'glyphicon glyphicon-remove',
       validating: 'glyphicon glyphicon-refresh'
-  },
-  fields: {
-    upload: {
-      validators: {
-        file: {
-          extension: 'mp4,mp3,avi,mov',
-          type: 'video/mp4,video/avi,video/quicktime,video/x-ms-wmv',
-          maxSize: 25 * 1024 *1024,
-          message: 'Max. size of 25Mb'
+     },
+    fields: {
+      firstname: {
+        validators: {
+          notEmpty: {
+            Message: 'First name can\'t be empty'
+          },
+          stringLength: {
+            min: 5,
+            max: 30,
+            message: 'First name should be more than 5 and less than 30 characters long'
+          },
+          regexp: {
+            regexp: /^[a-zA-Z ]+$/,
+            message: 'First Name can only consist of alphabetical values'
+          }
+        }
+      },
+      lastname: {
+        validators: {
+          notEmpty: {
+            Message: 'Last name can\'t be empty'
+          },
+          stringLength: {
+            min: 5,
+            max: 30,
+            message: 'Last name should be more than 5 and less than 30 characters long'
+          },
+          regexp: {
+            regexp: /^[a-zA-Z ]+$/,
+            message: 'Last Name can only consist of alphabetical values'
+          }
+        }
+      },
+      email: {
+        validators: {
+            notEmpty: {
+                message: 'The email is required and cannot be empty'
+            },
+            emailAddress: {
+                message: 'The input is not a valid email address'
+            }
+        }
+      },
+      upload: {
+        validators: {
+          file: {
+            extension: 'mp4,mp3,avi,mov',
+            type: 'video/mp4,video/avi,video/quicktime,video/x-ms-wmv',
+            maxSize: 50 * 1024 *1024,
+            message: 'Max. size of 50MB'
+          }
         }
       }
     }
-  }
+  }).on('success.form.bv',function(e){
+    e.preventDefault();
+    const formData = new FormData(document.getElementsByClassName('main-form')[0]);
+    // const config = {
+    //   onUploadProgress: function(progressEvent) {
+    //     var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+    //     console.log(percentCompleted)
+    //   }
+    // }
+
+    axios.post('/accept',formData)
+    .then((response) => {
+      swal({
+        title: "Thank you",
+        text: "Your\r Video message is accepted successfully.",
+        icon: "success",
+        button: "Cool",
+      }).then((value) => {
+        location.reload();
+      });
+    })
+    .catch((error) => {
+      swal({
+        title: "Error",
+        text: "There was some Error in processing...",
+        icon: "error",
+        button: "Try Again",
+      }).then((then => {
+        location.reload();
+      }));
+    })
   })
 });

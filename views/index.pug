@@ -3,7 +3,6 @@ extends layout
 block content
   header.bg-primary.py-2
     h4.display-4.text-white.text-center Shraddha Sirisha
-    .invisible#status #{errorMessage}
   .bg-light
     .container
       .row
@@ -45,32 +44,32 @@ block content
         .col.text-center.font-weight-bold
           p#seconds seconds
           span Seconds
-    form#fileForm.main-form.needs-validation(action='/' enctype='multipart/form-data' method='POST' novalidate='')
+    form.main-form.needs-validation(enctype='multipart/form-data' name='forminfo' method='POST' novalidate='')
       .row
         .col-sm
           .form-group
             label(for='firstname') First name
-            input#firstname.form-control(type='text' name='firstname' minLength= '5' maxLength= '25' size= '25' required='')
-            .invalid-feedback
-              | Please provide First name, minumum 5 Charecters
+            input#firstname.form-control(type='text' name='firstname'  size= '30' required='')
+            //- .invalid-feedback
+            //-   | Please provide First name, minumum 5 Charecters
         .col-sm
           .form-group
             label(for='lastname') Last name
-            input#lastname.form-control(type='text' name='lastname' minLength= '5' maxLength= '25' size= '25' required='')
-            .invalid-feedback
-              | Please provide Last name,, minumum 5 Charecters
+            input#lastname.form-control(type='text' name='lastname'  size= '30' required='')
+            //- .invalid-feedback
+            //-   | Please provide Last name,, minumum 5 Charecters
       .form-group
         label(for='email') Email id
         input#email.form-control(type='email' name='email' required='')
-        .invalid-feedback
-          | Please provide an email id
+        //- .invalid-feedback
+        //-   | Please provide an email id
       .form-group
         label(for='upload') Upload your video message here
         input#upload.form-control-file(type='file' name='upload' accept='video/*' capture='user' required='')
-        .invalid-feedback
-          | Please upload a video file.
+        //- .invalid-feedback
+        //-   | Please upload a video file.
       .form-group
-        input.btn.btn-primary(type='submit' value='submit')
+        input.btn.btn-primary(type='submit' value='Submit' )
   footer.bg-info.text-center.text-dark.py-2
     p
       small
@@ -84,4 +83,3 @@ block content
   script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js' integrity='sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN' crossorigin='anonymous')
   script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js' integrity='sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV' crossorigin='anonymous')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js')
-  script(src='/javascripts/script.js' defer)

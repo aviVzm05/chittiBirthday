@@ -53,91 +53,52 @@ function uploadVideoToTemp(file,filename1) {
     return uploadVideo;
 }
 
-router.post('/',[
-    body('firstname').isLength({min:5}).trim().escape(),
-    body('lastname').isLength({min:5}).trim().escape(),
-    body('email').isEmail().normalizeEmail(),
-
-],function(req, res, next) {
-
-    // Finds the validation errors in this request and wraps them in an object with handy functions
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-         res.status(400);
-         return res.render('index', {
-             errorMessage: "invalid data entered"
-         });
-    }
+router.post('/',function(req, res, next) {
     var filename1 = uuidv4() + '_' +  req.files.upload.name;
     var fileObject = testBucket.file(filename1);
 
 // streams to load directly doesn't seem to be working. first save the vedio to temp location
 // and them load to GCP and then delete it from temp
-
-    if (!(req.files.upload.mimetype == 'video/mp4' || 
-          req.files.upload.mimetype == 'video/avi' ||
-          req.files.upload.mimetype == 'video/quicktime' ||
-          req.files.upload.mimetype == 'video/x-ms-wmv'
-        )) {
-        console.log('not a valid entry with mimetype ' + req.files.upload.mimetype + ' or size ' + req.files.upload.size);
-          // render the error page
-        res.status(500);
-        res.render('error', {
-            reason: "can't upload the file...not in valid video file format",
-            message: "Sorry.. please try again"
-        });
-    } else if (req.files.upload.size > (25 * 1024 * 1024)){
-            // render the error page
+//code to move the vedio to temp location
+    uploadVideoToTemp(req.files.upload,filename1)
+    .then(() => {
+        fs.createReadStream(path.join(tempPath,filename1))
+        .pipe(fileObject.createWriteStream({
+            gzip: true,
+            resumable:  false
+        })).on('error',(err) =>{
+            console.log('error occured while writting to Google cloud');
             res.status(500);
-            res.render('index', {
-                errorMessage: "can't upload the file...too huge, please limit the size to 25MB"
-            });
-    }else {
-        //code to move the vedio to temp location
-        uploadVideoToTemp(req.files.upload,filename1)
-        .then(() => {
-            fs.createReadStream(path.join(tempPath,filename1))
-            .pipe(fileObject.createWriteStream({
-                gzip: true,
-                resumable:  false
-            })).on('error',(err) =>{
-                console.log('error occured while writting to Google cloud');
-                res.status(500);
-                res.render('index', {
-                    errorMessage: "Can not upload to Google Cloud"
-                });
-            }).on('finish',()=>{
-                var data = {
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-                email: req.body.email,
-                filename: filename1
+            res.send();
+        }).on('finish',()=>{
+            var data = {
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            filename: filename1
+            };
+            const docRef = db.collection('Videos').doc(filename1);
+                async function setDocument(data) {
+                    var output = await docRef.set(data);
                 };
-                const docRef = db.collection('Videos').doc(filename1);
-                    async function setDocument(data) {
-                        var output = await docRef.set(data);
-                    };
-                setDocument(data);
-                console.log(`Record successfully updloaded for ${data.firstname},${data.lastname}`)
-                fs.unlink(path.join(tempPath,filename1),(err)=> {
-                    if (!err) {
-                        console.log('temp file deleted');
-                    }else{
-                        console.log('well this failed ' + err);
-                    }
-                });
-                //send responde message to the user.
-                res.status(201);
-                res.render('accept',{
-                    firstname: data.firstname,
-                    lastname: data.lastname,
-                    email: data.email   
-                });
-            })
-        }).catch((err) => {
-            console.log('error from upload file promise '+ err);
-        });
-    }
+            setDocument(data);
+            console.log(`Record successfully updloaded for ${data.firstname},${data.lastname}`)
+            fs.unlink(path.join(tempPath,filename1),(err)=> {
+                if (!err) {
+                    console.log('temp file deleted');
+                }else{
+                    console.log('well this failed ' + err);
+                }
+            });
+            //send responde message to the user.
+            res.status(201);
+            res.send();
+        })
+    }).catch((err) => {
+        console.log('error from upload file promise, uploading to temp file failed.. '+ err);
+        res.status(500);
+        res.send();
+    });
 });
 
 module.exports = router;
