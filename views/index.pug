@@ -45,16 +45,16 @@ block content
           p#seconds seconds
           span Seconds
     form.main-form(enctype='multipart/form-data' name='forminfo' method='POST' novalidate='')
-      .row
-        .form-group.col-sm
+      .form-row
+        .form-group.col-sm-4
           label(for='firstname') First name
-          input#firstname.form-control(type='text' name='firstname'  size= '30' required='')
-        .form-group.col-sm
+          input#firstname.form-control(type='text' name='firstname'  size= '30' placeholder="First Name" required='')
+        .form-group.col-sm-4
           label(for='lastname') Last name
-          input#lastname.form-control(type='text' name='lastname'  size= '30' required='')
-        .form-group.col-sm
+          input#lastname.form-control(type='text' name='lastname'  size= '30' placeholder="Last Name" required='')
+        .form-group.col-sm-4
           label(for='email') Email id
-          input#email.form-control(type='email' name='email' required='')
+          input#email.form-control(type='email' name='email' placeholder="Email" required='')
       .form-group
         label(for='upload') Video Message...
         input#upload.form-control-file(type='file' name='upload' accept='video/*' capture='user' required='')
