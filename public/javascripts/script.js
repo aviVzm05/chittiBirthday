@@ -102,13 +102,8 @@ $(document).ready(function(){
   }).on('success.form.bv',function(e){
     e.preventDefault();
     const formData = new FormData(document.getElementsByClassName('main-form')[0]);
-    // const config = {
-    //   onUploadProgress: function(progressEvent) {
-    //     var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-    //     console.log(percentCompleted)
-    //   }
-    // }
-
+    var alert = document.getElementsByClassName('alert')[0]
+    alert.classList.remove('d-none');  // display alert
     axios.post('/accept',formData)
     .then((response) => {
       swal({

@@ -44,32 +44,24 @@ block content
         .col.text-center.font-weight-bold
           p#seconds seconds
           span Seconds
-    form.main-form.needs-validation(enctype='multipart/form-data' name='forminfo' method='POST' novalidate='')
+    form.main-form(enctype='multipart/form-data' name='forminfo' method='POST' novalidate='')
       .row
-        .col-sm
-          .form-group
-            label(for='firstname') First name
-            input#firstname.form-control(type='text' name='firstname'  size= '30' required='')
-            //- .invalid-feedback
-            //-   | Please provide First name, minumum 5 Charecters
-        .col-sm
-          .form-group
-            label(for='lastname') Last name
-            input#lastname.form-control(type='text' name='lastname'  size= '30' required='')
-            //- .invalid-feedback
-            //-   | Please provide Last name,, minumum 5 Charecters
+        .form-group.col-sm
+          label(for='firstname') First name
+          input#firstname.form-control(type='text' name='firstname'  size= '30' required='')
+        .form-group.col-sm
+          label(for='lastname') Last name
+          input#lastname.form-control(type='text' name='lastname'  size= '30' required='')
+        .form-group.col-sm
+          label(for='email') Email id
+          input#email.form-control(type='email' name='email' required='')
       .form-group
-        label(for='email') Email id
-        input#email.form-control(type='email' name='email' required='')
-        //- .invalid-feedback
-        //-   | Please provide an email id
-      .form-group
-        label(for='upload') Upload your video message here
+        label(for='upload') Video Message...
         input#upload.form-control-file(type='file' name='upload' accept='video/*' capture='user' required='')
-        //- .invalid-feedback
-        //-   | Please upload a video file.
       .form-group
-        input.btn.btn-primary(type='submit' value='Submit' )
+        input.btn.btn-primary(type='submit' value='Upload Video' )
+    div.alert.alert-primary.d-none(role="alert")
+      | We are uploading the Video... please wait.
   footer.bg-info.text-center.text-dark.py-2
     p
       small
