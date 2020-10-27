@@ -15,8 +15,8 @@ block content
               | I like
               ul
                 li Chota Bheem
-                li playing with Barbie dolls
-                li making my mother mad &#128520; and
+                li Playing with Barbie dolls
+                li Making my mother mad &#128520; and
                 li Eating panner &#128523;
             p.lead
               | Am going to celebrate my 8th Birthday &#128515; on 
@@ -24,7 +24,6 @@ block content
               | Shower me with your blessings and best wishes through a video message(and gifts &#128521;).
               | This is a simple webpage, my Dad designed... so yeah, as you see... hopes are not high &#128540;.
             strong I &hearts; my Dad!
-            p
         .col-sm-6.py-4
           img.img-thumbnail(src='/images/Chitti.jpg' alt='Can not show' class='height:auto')
       .row.text-center
@@ -44,22 +43,25 @@ block content
         .col.text-center.font-weight-bold
           p#seconds seconds
           span Seconds
-    form.main-form(enctype='multipart/form-data' name='forminfo' method='POST' novalidate='')
-      .form-row
-        .form-group.col-sm-4
-          label(for='firstname') First name
-          input#firstname.form-control(type='text' name='firstname'  size= '30' placeholder="First Name" required='')
-        .form-group.col-sm-4
-          label(for='lastname') Last name
-          input#lastname.form-control(type='text' name='lastname'  size= '30' placeholder="Last Name" required='')
-        .form-group.col-sm-4
-          label(for='email') Email id
-          input#email.form-control(type='email' name='email' placeholder="Email" required='')
-      .form-group
-        label(for='upload') Video Message...
-        input#upload.form-control-file(type='file' name='upload' accept='video/*' capture='user' required='')
-      .form-group
-        input.btn.btn-primary(type='submit' value='Upload Video' )
+      form.main-form.py-2(enctype='multipart/form-data' name='forminfo' method='POST' novalidate='')
+        .form-group.row
+          label.col-form-label.col-sm-2(for='firstname') First Name:
+          .col-sm-10
+            input#firstname.form-control(type='text' name='firstname'  size= '30' placeholder="First Name" required='')
+        .form-group.row
+          label.control-label.col-sm-2(for='lastname') Last Name:
+          .col-sm-10
+            input#lastname.form-control(type='text' name='lastname'  size= '30' placeholder="Last Name" required='')
+        .form-group.row
+          label.control-label.col-sm-2(for='email') Email Id:
+          .col-sm-10
+            input#email.form-control(type='email' name='email' placeholder="Email" required='')
+        .form-group.row
+          .custom-file
+            label.control-label.custom-file-label(for='upload') Video Message...
+            input#upload.custom-file-input(type='file' name='upload' accept='video/*' capture='user' aria-describedby="sizeHelp" required='')
+        .form-group.row
+          input.btn.btn-primary(type='submit' value='Submit Details' )
     div.alert.alert-primary.d-none(role="alert")
       | We are uploading the Video... please wait.
   footer.bg-info.text-center.text-dark.py-2
