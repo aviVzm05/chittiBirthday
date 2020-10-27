@@ -15,7 +15,6 @@ const os = require('os');
 require('dotenv').config();
 
 var router = express.Router();
-
 // create new storage instance
 const gc =  new Storage({
     keyFilename: path.join(__dirname,'..',process.env.GOOGLE_APPLICATION_CREDENTIALS),
@@ -75,19 +74,18 @@ router.post('/',function(req, res, next) {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             email: req.body.email,
-            filename: filename1
+            publicurl: `https://storage.googleapis.com/${testBucket.name}/${filename1}`
             };
             const docRef = db.collection('Videos').doc(filename1);
-                async function setDocument(data) {
-                    var output = await docRef.set(data);
-                };
-            setDocument(data);
-            console.log(`Record successfully updloaded for ${data.firstname},${data.lastname}`)
+            docRef.set(data); // process update to firestore asynchronusly.
+            //     async function setDocument(data) {
+            //         var output = await docRef.set(data);
+            //     };
+            // setDocument(data);
+            // console.log(`Record successfully updloaded for ${data.firstname},${data.lastname}`)
             fs.unlink(path.join(tempPath,filename1),(err)=> {
-                if (!err) {
-                    console.log('temp file deleted');
-                }else{
-                    console.log('well this failed ' + err);
+                if (err) {
+                    console.log('Error while deleting temp file ' + err);
                 }
             });
             //send responde message to the user.

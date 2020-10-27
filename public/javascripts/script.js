@@ -106,17 +106,18 @@ $(document).ready(function(){
     alert.classList.remove('d-none');  // display alert
     axios.post('/accept',formData)
     .then((response) => {
-      swal({
+      alert.classList.add('d-none');  // hide the alert again.
+      swal.fire({
         title: "Thank you",
-        text: "Your\r Video message is accepted successfully.",
+        text: "Your Video message accepted successfully.",
         icon: "success",
-        button: "Cool",
+        button: "Okay",
       }).then((value) => {
         location.reload();
       });
     })
     .catch((error) => {
-      swal({
+      swal.fire({
         title: "Error",
         text: "There was some Error in processing...",
         icon: "error",

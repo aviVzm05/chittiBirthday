@@ -6,7 +6,8 @@ var logger = require('morgan');
 var favicon = require('serve-favicon');
 
 var indexRouter = require('./routes/index');
-var acceptRouter = require('./routes/accept');
+//var acceptRouter = require('./routes/accept');
+var acceptRouter = require('./routes/uploadMulter');
 
 var app = express();
 
