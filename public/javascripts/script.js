@@ -123,7 +123,8 @@ $(document).ready(function(){
         icon: "error",
         button: "Try Again",
       }).then((then => {
-        location.reload();
+        // location.reload();
+        document.getElementsByClassName('main-form').reset();
       }));
     })
   })
