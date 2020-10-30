@@ -46,8 +46,9 @@ function uploadImage(file) {
             gzip: true,
             resumable: false
         })
-        blobstream.on('finish',() => {
+        blobstream.on('finish',(status) => {
             resolve(blob.name)
+            console.log('status from inert to Storage: ' + status);
         }).on('error', (err) => {
             reject(err)
         }).end(buffer)
