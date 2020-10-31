@@ -13,7 +13,7 @@ var router = express.Router();
 // create new storage instance
 const gc =  new Storage({
     keyFilename: path.join(__dirname,'..',process.env.GOOGLE_APPLICATION_CREDENTIALS),
-    projectId: 'nodejstestingavinash' // storage owner....
+    projectId: process.env.PROJECT_ID // storage owner....
 });
 
 const testBucket = gc.bucket(process.env.GCLOUD_STORAGE_BUCKET);
@@ -21,7 +21,7 @@ const testBucket = gc.bucket(process.env.GCLOUD_STORAGE_BUCKET);
 // Create an instance to our firestore db ... 
 
 const db = new Firestore({
-    projectId: 'nodejstestingavinash',
+    projectId: process.env.PROJECT_ID,
     keyFilename: path.join(__dirname,'..',process.env.GOOGLE_APPLICATION_CREDENTIALS)
   });
 

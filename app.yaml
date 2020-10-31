@@ -17,4 +17,5 @@ env_variables:
   GCLOUD_STORAGE_BUCKET: shraddhasirisha.appspot.com
   PORT: 8080
   GOOGLE_APPLICATION_CREDENTIALS: /shraddhasirisha-5d0240e5b5b8.json
+  PROJECT_ID: shraddhasirisha
 # [END gae_quickstart_yaml]
