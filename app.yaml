@@ -14,7 +14,7 @@
 # [START gae_quickstart_yaml]
 runtime: nodejs12
 env_variables:
-  GCLOUD_STORAGE_BUCKET: nodejstestingavinash.appspot.com
+  GCLOUD_STORAGE_BUCKET: shraddhasirisha.appspot.com
   PORT: 8080
-  GOOGLE_APPLICATION_CREDENTIALS: /nodejstestingavinash-2812be094e14_pojectowner.json
+  GOOGLE_APPLICATION_CREDENTIALS: /shraddhasirisha-5d0240e5b5b8.json
 # [END gae_quickstart_yaml]
