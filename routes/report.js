@@ -29,8 +29,8 @@ router.get('/',(req,res,next) => {
         }else {
             docref.forEach((doc) => {
                 array.push(doc.data());
-                res.status(200).send(array);
             });
+            res.status(200).send(array);
         }
     }
     try{
