@@ -28,9 +28,13 @@ router.get('/',(req,res,next) => {
             console.log ('no data in given collection')
         }else {
             docref.forEach((doc) => {
-                array.push(doc.data());
+                if (Object.keys(doc.data()).length != 0) {
+                    array.push(doc.data());
+                }
             });
-            res.status(200).send(array);
+            res.render('report', {
+                data: array
+            });
         }
     }
     try{

@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  header.bg-primary.py-2
+    h4.display-4.text-white.text-center Shraddha Sirisha
+  .bg-light
+    .container.p-2
+      video(src="https://storage.googleapis.com/shraddhasirisha.appspot.com/pushOut/Birthday.mp4" type="video/mp4" width="450" height="240" controls)  
+      br
+      p
+       strong 
+              | Thank you guys, for all the messages and a total of Rs.30,000 raised for kids... &#128515; 
+              a(href="https://www.akshayapatra.org/active-fundraising-campaigns/chitti-birthday" target="_blank") Details here.
+
+      table.table.table-striped.table-bordered
+        - var headers = ['First Name','Second Name'];
+        tr
+            each column in headers
+                th #{column}
+        - for (var i = 0; i < data.length ; i++)
+            tr
+                td #{data[i].firstname}
+                td #{data[i].lastname}
+  footer.bg-info.text-center.py-2
+    p
+      small
+        | Messages recorded are stored in private cloud and would not be made
+        | public. The website and Video messages received would be destroyed after 15th November.
+        | For any issues reach out to 
+        a(href="mailto:avi.vzm05@gmail.com") Avinash  

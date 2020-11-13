@@ -22,9 +22,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 
-app.use('/', indexRouter);
-app.use('/accept', acceptRouter);
-app.use('/reports', reportRouter);
+// app.use('/', indexRouter);
+// app.use('/accept', acceptRouter);
+// app.use('/myday', reportRouter);
+
+app.use('/', reportRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
